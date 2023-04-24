@@ -3,6 +3,9 @@ trigger:
 
 pool:
   name: default
+  demands:
+  - maven 
+  - Agent.Version -gtVersion 2.163.1
 
 steps:
 - task: MavenAuthenticate@0
