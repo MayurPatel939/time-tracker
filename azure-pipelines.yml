@@ -8,10 +8,6 @@ pool:
   - Agent.Version -gtVersion 2.163.1
 
 steps:
-- task: MavenAuthenticate@0
-  inputs:
-    artifactsFeeds: 'MyFeed'
-
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
