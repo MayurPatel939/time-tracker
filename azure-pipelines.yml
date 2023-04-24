@@ -1,23 +1,20 @@
 trigger:
-- main
+- master
 
 pool:
-  name: defualt
-  demands:
-  - maven
-  - Agent.Version -gtVersion 2.163.1
+  vmImage: 'ubuntu-latest'
 
-stages:
-- stage: Build
-  displayName: Build stage
-  jobs:  
-  - job: Build
-    displayName: Build Maven Project
-    steps:
-    - task: Maven@1
-      inputs:
-        mavenPomFile: 'pom.xml'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-        mavenVersionOption: 'Default'
+steps:
+- task: MavenAuthenticate@0
+  inputs:
+    artifactsFeeds: 'MyFeed'
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
