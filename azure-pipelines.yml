@@ -1,14 +1,17 @@
 trigger:
 - main
 
-pool:
- name: default
-
 stages:
 - stage: Build
   displayName: Build stage
   jobs:  
   - job: Build
+    pool:
+      name: defualt
+      demands:
+      - maven
+      - Agent.Version -gtVersion 2.163.1
+    
     displayName: Build Maven Project
     steps:
     - task: Maven@1
