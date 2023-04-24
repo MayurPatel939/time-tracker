@@ -1,0 +1,23 @@
+trigger:
+- main
+
+pool:
+ name: default
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build
+    displayName: Build Maven Project
+    steps:
+    - task: Maven@1
+      inputs:
+        mavenPomFile: 'pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        #effectivePomSkip: false
+        sonarQubeRunAnalysis: false
