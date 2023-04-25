@@ -8,7 +8,7 @@ pool: ubuntu-latest
   #- Agent.Version -gtVersion 2.163
 
 steps:
-- task: Maven@3
+- task: Maven@1
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
