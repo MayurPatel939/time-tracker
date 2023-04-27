@@ -1,12 +1,9 @@
 trigger:
 - master
 
-pool: ubuntu-latest
-  #name: default
-  #demands:
-  #- maven 
-  #- Agent.Version -gtVersion 2.163
-
+pool:
+  name: default
+  
 steps:
 - task: Maven@1
   inputs:
