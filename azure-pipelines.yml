@@ -13,4 +13,4 @@ steps:
     jdkVersionOption: '1.8'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    goals: 'mvn package'
