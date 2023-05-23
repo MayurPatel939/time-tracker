@@ -2,12 +2,12 @@ trigger:
 - master
 
 pool:
-  name: default
+  name: ubuntu20.04.6
   
 steps:
 - task: Maven@1
   inputs:
-    mavenPomFile: 'time-tracker/pom.xml'
+    mavenPomFile: 'pom.xml'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'mvn package'
