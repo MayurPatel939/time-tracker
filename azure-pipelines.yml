@@ -3,11 +3,28 @@ trigger:
 
 pool:
   name: ubuntu20.04.6
-  
+
 steps:
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: 'SonarqQube'
+    scannerMode: 'Other'
+
 - task: Maven@1
   inputs:
     mavenPomFile: 'pom.xml'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'mvn package'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**/*.jar'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
