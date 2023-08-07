@@ -19,4 +19,7 @@ stages{
                     archiveArtifacts artifacts: '**/target/*.war'
                 }
             }
-        }
+       }
+            
+    }
+}
