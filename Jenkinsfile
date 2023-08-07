@@ -1,15 +1,22 @@
 pipeline {
     agent any
-    tools{
-        maven 'maven'
-    }  
- }
+    
+    tools {
+        maven 'local_maven'
+    }
+    parameters {
+         string(name: 'staging_server', defaultValue: '13.232.37.20', description: 'Remote Staging Server')
+    }
 
-    stages {
-        stage('Build') {
+stages{
+        stage('Build'){
             steps {
-                script {
-                    sh "mvn clean package"
+                sh 'mvn clean package'
+            }
+            post {
+                success {
+                    echo 'Archiving the artifacts'
+                    archiveArtifacts artifacts: '**/target/*.war'
                 }
             }
         }
