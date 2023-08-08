@@ -5,6 +5,9 @@ pipeline {
     {
        maven "maven"
     }
+    environment{
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub')
+    }
  stages {
       stage('checkout') {
            steps{
@@ -22,14 +25,17 @@ pipeline {
                 sh 'docker tag samplewebapp mayurchhabhaiya/mayurdevops:latest'
             }
         }
+
+        stage('Login'){
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+
+        }
      
         stage('Publish image to Docker Hub'){
             steps{
-                withDockerRegistry([ credentialsId: "dockerHub", url: "" ]){
-                sh  'docker push mayurchhabhaiya/mayurdevops:latest'
+                sh 'docker push mayurchhabhaiya/mayurdevops:latest'
             }          
         }
-    }
         stage('Run Docker container on Jenkins Agent'){
              steps{
                 sh "docker run -d -p 8001:8080 mayurchhabhaiya/samplewebapp"
