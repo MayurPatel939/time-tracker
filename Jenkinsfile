@@ -38,7 +38,7 @@ stage('Run Docker container on Jenkins Agent') {
         }
 stage('Run Docker container on remote hosts') {
             steps {
-                sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 8001:8080 mayurchhabhaiya/samplewebapp"
+                sh "docker -H ssh://azureuser@4.240.15.40 run -d -p 8001:8080 mayurchhabhaiya/samplewebapp"
             }
         }
     }
